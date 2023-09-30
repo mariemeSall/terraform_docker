@@ -1,0 +1,19 @@
+#!/bin/bash
+cd infra || exit
+
+case "$1" in
+  deploy)
+    terraform init
+    terraform plan
+    terraform apply -auto-approve
+    xdg-open http://localhost:8080/
+    ;;
+  destroy)
+    terraform init
+    terraform destroy -auto-approve
+    ;;
+  *)
+    echo "Invalid argument. Use one of: deploy, destroy."
+    exit 1
+    ;;
+esac
